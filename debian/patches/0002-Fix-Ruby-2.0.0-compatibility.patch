@@ -1,0 +1,22 @@
+From: =?utf-8?q?V=C3=ADt_Ondruch?= <v.ondruch@tiscali.cz>
+Date: Tue, 9 Apr 2013 11:12:02 +0300
+Subject: Fix Ruby 2.0.0 compatibility
+
+#respond_to? now exclude protected methods.
+---
+ lib/rack/mount/multimap.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/rack/mount/multimap.rb b/lib/rack/mount/multimap.rb
+index 6b773e2..b88630b 100644
+--- a/lib/rack/mount/multimap.rb
++++ b/lib/rack/mount/multimap.rb
+@@ -125,7 +125,7 @@ module Rack::Mount
+       end
+ 
+       def iterate_over_container(container)
+-        if container.respond_to?(:each_container_with_default)
++        if container.respond_to?(:each_container_with_default, true)
+           container.each_container_with_default do |value|
+             yield value
+           end

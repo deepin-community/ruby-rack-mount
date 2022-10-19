@@ -1,0 +1,3 @@
+0003-allow-conditions-to-duck-type-as-a-regexp-alike.patch
+0001-Fix-warning-from-Hash.patch
+0002-Fix-Ruby-2.0.0-compatibility.patch

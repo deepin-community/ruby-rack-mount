@@ -1,0 +1,33 @@
+Description: Allow conditions to duck-type as a Regexp-alike
+Author: Bob Aman <bob@sporkmonger.com>
+Origin: https://github.com/sporkmonger/rack-mount/commit/076aa2c47d9a4c081f1e9bcb56a826a9e72bd5c3.patch
+Reviewed-by: Cédric Boutillier <boutil@debian.org>
+Last-Update: 2016-06-04
+
+--- a/lib/rack/mount/code_generation.rb
++++ b/lib/rack/mount/code_generation.rb
+@@ -35,11 +35,20 @@
+           body << 'params = route.defaults.dup'
+ 
+           conditions = []
+-          route.conditions.each do |method, condition|
++          route.conditions.each do |(method, condition)|
+             b = []
+-            if condition.is_a?(Regexp)
+-              b << "if m = obj.#{method}.match(#{condition.inspect})"
+-              b << "matches[:#{method}] = m"
++            if condition.is_a?(Regexp) || condition.respond_to?(:match)
++              if condition.is_a?(Regexp)
++                b << "if m = #{condition.inspect}.match(obj.#{method})"
++                b << "matches[:#{method}] = m"
++              elsif condition.class.instance_method(:match).arity == 1 ||
++                  condition.class.instance_method(:match).arity <= -1
++                b << "condition = route.conditions[#{method.inspect}]"
++                b << "if m = condition.match(obj.#{method})"
++                b << "matches[:#{method}] = m"
++              else
++                raise 'unexpected arity for condition\'s :match method'
++              end
+               if (named_captures = route.named_captures[method]) && named_captures.any?
+                 b << 'captures = m.captures'
+                 b << 'p = nil'

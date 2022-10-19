@@ -1,0 +1,27 @@
+ruby-rack-mount (0.8.3-3) unstable; urgency=medium
+
+  [ Antonio Terceiro ]
+  * Remove myself from Uploaders:
+
+  [ Balint Reczey ]
+  * Team Upload
+  * Drop obsolete build dependency on ruby-multimap
+
+ -- Balint Reczey <rbalint@ubuntu.com>  Tue, 20 Feb 2018 22:18:29 +0700
+
+ruby-rack-mount (0.8.3-2) unstable; urgency=medium
+
+  * Bump debhelper compatibility level to 9
+  * Use https:// in Vcs-* fields
+  * Bump Standards-Version to 3.9.8 (no changes needed)
+  * Run wrap-and-sort on packaging files
+  * Add 0003-allow-conditions-to-duck-type-as-a-regexp-alike.patch
+  * Update homepage
+
+ -- Cédric Boutillier <boutil@debian.org>  Sat, 04 Jun 2016 15:57:14 +0200
+
+ruby-rack-mount (0.8.3-1) unstable; urgency=medium
+
+  * Initial release (Closes: #676392)
+
+ -- Hleb Valoshka <375gnu@gmail.com>  Tue, 07 Jul 2015 13:45:35 +0300

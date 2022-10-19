@@ -1,0 +1,32 @@
+Source: ruby-rack-mount
+Section: ruby
+Priority: optional
+Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Uploaders: Cédric Boutillier <boutil@debian.org>,
+           Hleb Valoshka <375gnu@gmail.com>,
+Build-Depends: debhelper (>= 9~),
+               gem2deb,
+               rake,
+               ruby-rack (>= 1.0.0)
+Standards-Version: 3.9.8
+Vcs-Git: https://anonscm.debian.org/git/pkg-ruby-extras/ruby-rack-mount.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/ruby-rack-mount.git
+Homepage: https://github.com/jm/rack-mount
+Testsuite: autopkgtest-pkg-ruby
+XS-Ruby-Versions: all
+
+Package: ruby-rack-mount
+Architecture: all
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby | ruby-interpreter,
+         ruby-rack (>= 1.0.0),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Stackable dynamic tree based Rack router
+ Rack::Mount supports Rack's "X-Cascade" convention to continue trying routes
+ if the response returns "pass". This allows multiple routes to be nested or
+ stacked on top of each other. Since the application endpoint can trigger the
+ router to continue matching, middleware can be used to add arbitrary
+ conditions to any route. This allows you to route based on other request
+ attributes, session information, or even data dynamically pulled from a
+ database.

@@ -1,0 +1,25 @@
+From: Hleb Valoshka <375gnu@gmail.com>
+Date: Mon, 6 Jul 2015 17:49:10 +0300
+Subject: Fix warning from Hash[]
+
+  This patch will fix the following warning:
+    warning: wrong element type nil at 1 (expected array)
+    warning: ignoring wrong elements is deprecated, remove them explicitly
+    warning: this causes ArgumentError in the next release
+---
+ lib/rack/mount/route.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/rack/mount/route.rb b/lib/rack/mount/route.rb
+index f7b4f43..f4a2456 100644
+--- a/lib/rack/mount/route.rb
++++ b/lib/rack/mount/route.rb
+@@ -99,7 +99,7 @@ module Rack::Mount
+       if method.nil?
+         result = Hash[@conditions.map { |m, condition|
+           [m, condition.generate(params, recall, options)] if condition.respond_to?(:generate)
+-        }]
++        }.compact]
+         return nil if result.values.compact.empty?
+       else
+         if condition = @conditions[method]
